@@ -10,10 +10,10 @@ app.use(bodyParser.json());//no need to call next() it was implicitly called
 app.post('/todos',(req,res)=>{
 // todo=new todo(req.body)
 newtodo= new Todo(req.body);
-newtodo.save().then((docs)=>{
-    res.send(docs);
+newtodo.save().then((todos)=>{
+    res.send(todos);
 },(err)=>{
-    res.send(err);
+    res.status(400).send(err);
 })
 })
 app.post('/users',(req,res)=>{
@@ -21,6 +21,13 @@ app.post('/users',(req,res)=>{
     user.save().then((docs)=>{
         res.send(docs);
     })
+})
+app.get('/todos',(req,res)=>{
+Todo.find().then((todos)=>{
+    res.send({todos});
+},(err)=>{
+    res.status(400).send(err);
+})
 })
 app.listen(8080,()=>{
     console.log("listening at port 8080")
