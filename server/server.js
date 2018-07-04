@@ -15,7 +15,6 @@ newtodo.save().then((docs)=>{
 },(err)=>{
     res.send(err);
 })
-console.log(req.body);
 })
 app.post('/users',(req,res)=>{
     user=new User(req.body);
@@ -26,3 +25,6 @@ app.post('/users',(req,res)=>{
 app.listen(8080,()=>{
     console.log("listening at port 8080")
 });
+module.exports={
+    app
+}
