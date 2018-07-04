@@ -30,7 +30,7 @@ location:'newYork'
 //       }
 //       console.log(JSON.stringify(result.ops))
 //     })
-    // db.collection('Users').insertOne({name:'ashu',age:20,location:'464/13'},(err,result)=>{
+//     // db.collection('Users').insertOne({name:'ashu',age:20,location:'464/13'},(err,result)=>{
     //     if(err)
     //     {
     //     return console.log("unable to insert ",err)
