@@ -8,7 +8,6 @@ var app=express();
 const port=process.env.PORT || 8080;
 app.use(bodyParser.json());//no need to call next() it was implicitly called
 app.post('/todos',(req,res)=>{
-// todo=new todo(req.body)
 
 newtodo= new Todo(req.body);
 newtodo.save().then((todos)=>{
