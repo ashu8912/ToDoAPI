@@ -55,7 +55,21 @@ it("should not create Todo when bad data is given",(done)=>{
           }).catch((err)=>done(err));
     })
 })
-
+it("should give all Todos",(done)=>{
+    request(app)
+    .get('/todos')
+    .end((err,res)=>{
+        console.log(res.body);
+        if(err)
+        {
+            return done(err);
+        }
+        Todo.find().then((todos)=>{
+            expect(todos.length).toBe(res.body.length);
+        done();
+        }).catch(e=>done(e))
+    })
+})
 
 
 // beforeEach((done) => {
