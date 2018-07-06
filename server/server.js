@@ -39,6 +39,15 @@ app.get('/todos/:id',(req,res)=>{
         }
         res.send(todo);}).catch((e)=>res.status(400).send())
 })
+app.delete('/todos/:id',(req,res)=>{
+    Todo.findOneAndRemove({id:req.params.id}).then((res)=>{
+        if(!res)
+        {
+            return res.send("no todos with this id")
+        }
+        res.send("successfully deleted");
+    }).catch(e=>res.status(404).send())
+})
 app.listen(port,()=>{
     console.log(`listening at port ${port}` )
 });
