@@ -7,6 +7,10 @@ var {User}=require('./models/user');
 var _=require('lodash');
 var app=express();
 const port=process.env.PORT || 8080;
+const {authenticate}=require('./middlewares/authenticate');
+
+
+
 app.use(bodyParser.json());//no need to call next() it was implicitly called
 app.post('/todos',(req,res)=>{
 
@@ -18,10 +22,18 @@ newtodo.save().then((todos)=>{
 })
 })
 app.post('/users',(req,res)=>{
-    user=new User(req.body);
-    user.save().then((docs)=>{
-        res.send(docs);
-    })
+    var body=_.pick(req.body,['email','password'])
+    user=new User(body);
+    user.save().then(()=>{
+        //res.send(docs);
+        return user.generateAuthToken();
+    }).then((token)=>{
+        res.header('x-auth',token).send(user);
+    }).catch(e=>res.status(400).send(e))
+})
+
+app.get('/users/me',authenticate,(req,res)=>{
+ res.send(req.user)   
 })
 app.get('/todos',(req,res)=>{
 Todo.find().then((todos)=>{
